@@ -37,7 +37,7 @@ STR_MATCH_OBJS = string_match.o
 STR_MATCH_SEQ_OBJS = string_match-seq.o
 STR_MATCH_PTHREAD_OBJS = string_match-pthread.o
 
-PROGS = string_match string_match-seq string_match-pthread
+PROGS = string_match string_match-seq_O0 string_match-pthread_O0 string_match-seq_O1 string_match-pthread_O1 string_match-seq_O2 string_match-pthread_O2 string_match-seq_O3 string_match-pthread_O3
 
 .PHONY: default all clean
 
@@ -48,11 +48,29 @@ all: $(PROGS)
 string_match: $(STR_MATCH_OBJS) $(LIB_DEP)
 	$(CC) $(CFLAGS) -o $@ $(STR_MATCH_OBJS) $(LIBS)
 
-string_match-seq: $(STR_MATCH_SEQ_OBJS)
-	$(CC) $(CFLAGS) -o $@ $(STR_MATCH_SEQ_OBJS) $(LIBS)
+string_match-seq_O0: $(STR_MATCH_SEQ_OBJS)
+	$(CC) -O0 $(CFLAGS) -o $@ $(STR_MATCH_SEQ_OBJS) $(LIBS)
 	
-string_match-pthread: $(STR_MATCH_PTHREAD_OBJS)
-	$(CC) $(CFLAGS) -o $@ $(STR_MATCH_PTHREAD_OBJS) $(LIBS)
+string_match-pthread_O0: $(STR_MATCH_PTHREAD_OBJS)
+	$(CC) -O0 $(CFLAGS) -o $@ $(STR_MATCH_PTHREAD_OBJS) $(LIBS)
+	
+string_match-seq_O1: $(STR_MATCH_SEQ_OBJS)
+	$(CC) -O1 $(CFLAGS) -o $@ $(STR_MATCH_SEQ_OBJS) $(LIBS)
+	
+string_match-pthread_O1: $(STR_MATCH_PTHREAD_OBJS)
+	$(CC) -O1 $(CFLAGS) -o $@ $(STR_MATCH_PTHREAD_OBJS) $(LIBS)
+	
+string_match-seq_O2: $(STR_MATCH_SEQ_OBJS)
+	$(CC) -O2 $(CFLAGS) -o $@ $(STR_MATCH_SEQ_OBJS) $(LIBS)
+	
+string_match-pthread_O2: $(STR_MATCH_PTHREAD_OBJS)
+	$(CC) -O2 $(CFLAGS) -o $@ $(STR_MATCH_PTHREAD_OBJS) $(LIBS)
+	
+string_match-seq_O3: $(STR_MATCH_SEQ_OBJS)
+	$(CC) -O3 $(CFLAGS) -o $@ $(STR_MATCH_SEQ_OBJS) $(LIBS)
+	
+string_match-pthread_O3: $(STR_MATCH_PTHREAD_OBJS)
+	$(CC) -O3 $(CFLAGS) -o $@ $(STR_MATCH_PTHREAD_OBJS) $(LIBS)
 	
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@ -I$(HOME)/$(INC_DIR)

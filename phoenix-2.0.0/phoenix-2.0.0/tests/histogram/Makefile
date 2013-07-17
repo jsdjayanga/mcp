@@ -37,7 +37,7 @@ HIST_OBJS = histogram.o
 HIST_SEQ_OBJS = histogram-seq.o
 HIST_PTHREAD_OBJS = histogram-pthread.o
 
-PROGS = histogram histogram-seq histogram-pthread
+PROGS = histogram histogram-seq_O0 histogram-pthread_O0 histogram-seq_O1 histogram-pthread_O1 histogram-seq_O2 histogram-pthread_O2 histogram-seq_O3 histogram-pthread_O3
 
 .PHONY: default all clean
 
@@ -48,11 +48,29 @@ all: $(PROGS)
 histogram: $(HIST_OBJS) $(LIB_DEP)
 	$(CC) $(CFLAGS) -o $@ $(HIST_OBJS) $(LIBS)
 
-histogram-seq: $(HIST_SEQ_OBJS)
+histogram-seq_O0: $(HIST_SEQ_OBJS)
 	$(CC) $(CFLAGS) -o $@ $(HIST_SEQ_OBJS) $(LIBS)
 
-histogram-pthread: $(HIST_PTHREAD_OBJS)
+histogram-pthread_O0: $(HIST_PTHREAD_OBJS)
 	$(CC) $(CFLAGS) -o $@ $(HIST_PTHREAD_OBJS) $(LIBS)
+	
+histogram-seq_O1: $(HIST_SEQ_OBJS)
+	$(CC) -O1 $(CFLAGS) -o $@ $(HIST_SEQ_OBJS) $(LIBS)
+
+histogram-pthread_O1: $(HIST_PTHREAD_OBJS)
+	$(CC) -O1 $(CFLAGS) -o $@ $(HIST_PTHREAD_OBJS) $(LIBS)
+	
+histogram-seq_O2: $(HIST_SEQ_OBJS)
+	$(CC) -O2 $(CFLAGS) -o $@ $(HIST_SEQ_OBJS) $(LIBS)
+
+histogram-pthread_O2: $(HIST_PTHREAD_OBJS)
+	$(CC) -O2 $(CFLAGS) -o $@ $(HIST_PTHREAD_OBJS) $(LIBS)
+	
+histogram-seq_O3: $(HIST_SEQ_OBJS)
+	$(CC) -O3 $(CFLAGS) -o $@ $(HIST_SEQ_OBJS) $(LIBS)
+
+histogram-pthread_O3: $(HIST_PTHREAD_OBJS)
+	$(CC) -O3 $(CFLAGS) -o $@ $(HIST_PTHREAD_OBJS) $(LIBS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@ -I$(HOME)/$(INC_DIR)

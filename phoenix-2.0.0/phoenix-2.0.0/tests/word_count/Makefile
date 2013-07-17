@@ -37,7 +37,7 @@ WC_OBJS := word_count.o sort.o
 WC_OBJS_PTHREAD := word_count-pthread.o sort-pthread.o
 WC_OBJS_SEQ := word_count-seq.o
 
-PROGS := word_count word_count-pthread word_count-seq
+PROGS := word_count word_count-pthread_O0 word_count-seq_O0 word_count-pthread_O1 word_count-seq_O1 word_count-pthread_O2 word_count-seq_O2 word_count-pthread_O3 word_count-seq_O3
 
 .PHONY: default all clean
 
@@ -48,11 +48,29 @@ all: $(PROGS)
 word_count: $(WC_OBJS) $(LIB_DEP)
 	$(CC) $(CFLAGS) -o $@ $(WC_OBJS) $(LIBS)
 
-word_count-pthread: $(WC_OBJS_PTHREAD)
-	$(CC) $(CFLAGS) -o $@ $(WC_OBJS_PTHREAD) $(LIBS)
+word_count-pthread_O0: $(WC_OBJS_PTHREAD)
+	$(CC) -O0 $(CFLAGS) -o $@ $(WC_OBJS_PTHREAD) $(LIBS)
 	
-word_count-seq: $(WC_OBJS_SEQ)
-	$(CC) $(CFLAGS) -o $@ $(WC_OBJS_SEQ) $(LIBS)
+word_count-seq_O0: $(WC_OBJS_SEQ)
+	$(CC) -O0 $(CFLAGS) -o $@ $(WC_OBJS_SEQ) $(LIBS)
+	
+word_count-pthread_O1: $(WC_OBJS_PTHREAD)
+	$(CC) -O1 $(CFLAGS) -o $@ $(WC_OBJS_PTHREAD) $(LIBS)
+	
+word_count-seq_O1: $(WC_OBJS_SEQ)
+	$(CC) -O1 $(CFLAGS) -o $@ $(WC_OBJS_SEQ) $(LIBS)
+	
+word_count-pthread_O2: $(WC_OBJS_PTHREAD)
+	$(CC) -O2 $(CFLAGS) -o $@ $(WC_OBJS_PTHREAD) $(LIBS)
+	
+word_count-seq_O2: $(WC_OBJS_SEQ)
+	$(CC) -O2 $(CFLAGS) -o $@ $(WC_OBJS_SEQ) $(LIBS)
+	
+word_count-pthread_O3: $(WC_OBJS_PTHREAD)
+	$(CC) -O3 $(CFLAGS) -o $@ $(WC_OBJS_PTHREAD) $(LIBS)
+	
+word_count-seq_O3: $(WC_OBJS_SEQ)
+	$(CC) -O3 $(CFLAGS) -o $@ $(WC_OBJS_SEQ) $(LIBS)
 
 %.o: %.c *.h
 	$(CC) $(CFLAGS) -c $< -o $@ -I$(HOME)/$(INC_DIR)

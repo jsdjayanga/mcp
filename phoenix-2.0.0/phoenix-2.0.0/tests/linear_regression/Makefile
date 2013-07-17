@@ -37,7 +37,7 @@ L_REG_OBJS = linear_regression.o
 L_REG_SEQ_OBJS = linear_regression-seq.o
 L_REG_PTHREAD_OBJS = linear_regression-pthread.o
 
-PROGS = linear_regression linear_regression-seq linear_regression-pthread
+PROGS = linear_regression linear_regression-seq_O0 linear_regression-pthread_O0 linear_regression-seq_O1 linear_regression-pthread_O1 linear_regression-seq_O2 linear_regression-pthread_O2 linear_regression-seq_O3 linear_regression-pthread_O3
 
 .PHONY: default all clean
 
@@ -48,12 +48,30 @@ all: $(PROGS)
 linear_regression: $(L_REG_OBJS) $(LIB_DEP)
 	$(CC) $(CFLAGS) -o $@ $(L_REG_OBJS) $(LIBS)
 
-linear_regression-seq: $(L_REG_SEQ_OBJS)
-	$(CC) $(CFLAGS) -o $@ $(L_REG_SEQ_OBJS) $(LIBS)
+linear_regression-seq_O0: $(L_REG_SEQ_OBJS)
+	$(CC) -O0 $(CFLAGS) -o $@ $(L_REG_SEQ_OBJS) $(LIBS)
 
-linear_regression-pthread: $(L_REG_PTHREAD_OBJS)
-	$(CC) $(CFLAGS) -o $@ $(L_REG_PTHREAD_OBJS) $(LIBS)
+linear_regression-pthread_O0: $(L_REG_PTHREAD_OBJS)
+	$(CC) -O0 $(CFLAGS) -o $@ $(L_REG_PTHREAD_OBJS) $(LIBS)
+	
+linear_regression-seq_O1: $(L_REG_SEQ_OBJS)
+	$(CC) -O1 $(CFLAGS) -o $@ $(L_REG_SEQ_OBJS) $(LIBS)
 
+linear_regression-pthread_O1: $(L_REG_PTHREAD_OBJS)
+	$(CC) -O1 $(CFLAGS) -o $@ $(L_REG_PTHREAD_OBJS) $(LIBS)
+
+linear_regression-seq_O2: $(L_REG_SEQ_OBJS)
+	$(CC) -O2 $(CFLAGS) -o $@ $(L_REG_SEQ_OBJS) $(LIBS)
+
+linear_regression-pthread_O2: $(L_REG_PTHREAD_OBJS)
+	$(CC) -O2 $(CFLAGS) -o $@ $(L_REG_PTHREAD_OBJS) $(LIBS)
+	
+linear_regression-seq_O3: $(L_REG_SEQ_OBJS)
+	$(CC) -O3 $(CFLAGS) -o $@ $(L_REG_SEQ_OBJS) $(LIBS)
+
+linear_regression-pthread_O3: $(L_REG_PTHREAD_OBJS)
+	$(CC) -O3 $(CFLAGS) -o $@ $(L_REG_PTHREAD_OBJS) $(LIBS)
+	
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@ -I$(HOME)/$(INC_DIR)
 
