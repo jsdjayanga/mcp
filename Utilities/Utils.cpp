@@ -57,9 +57,16 @@ bool Utils::Compare(double value1, double value2)
 
 double Utils::AverageValues(std::set<double>& value_set)
 {
+    set<double>::reverse_iterator rite = value_set.rbegin();
+    
     double average = 0.0;
     for (set<double>::iterator ite = value_set.begin(); ite != value_set.end(); ite++) 
     {
+        if (ite == value_set.begin() || ite == rite.base())
+        {
+            continue;
+        }
+
         average += *ite;
     }
     
