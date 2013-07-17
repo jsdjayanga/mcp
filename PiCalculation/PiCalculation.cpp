@@ -152,9 +152,9 @@ void CalculatePiParallel(uint32_t number_of_points)
 void AnalyzePerformance()
 {
     vector<int32_t> counts;
-    counts.push_back(1000);
-    counts.push_back(1000);
-    counts.push_back(1000);
+    counts.push_back(10000000);
+    counts.push_back(100000000);
+    counts.push_back(1000000000);
     
     vector<int32_t> thread_counts;
     thread_counts.push_back(1);
