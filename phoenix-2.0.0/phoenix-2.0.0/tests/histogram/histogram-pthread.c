@@ -152,12 +152,18 @@ int main(int argc, char *argv[]) {
 
 
    // Make sure a filename is specified
-   if (argv[1] == NULL) {
-      printf("USAGE: %s <bitmap filename>\n", argv[0]);
+   if (argv[1] == NULL || argv[2] == NULL) {
+      printf("USAGE: %s <bitmap filename> <no_of_threads>\n", argv[0]);
       exit(1);
    }
    
    fname = argv[1];
+   num_procs = atoi(argv[2]);
+   if (num_procs == 0)
+   {
+       printf("Invalid number of threads (%s). Running in a single thread.\n", argv[2]);
+       num_procs = 1;
+   }
    
    // Read in the file
    CHECK_ERROR((fd = open(fname, O_RDONLY)) < 0);
@@ -205,7 +211,7 @@ int main(int argc, char *argv[]) {
    pthread_attr_init(&attr);
    pthread_attr_setscope(&attr, PTHREAD_SCOPE_SYSTEM);
    
-   CHECK_ERROR((num_procs = sysconf(_SC_NPROCESSORS_ONLN)) <= 0);
+   //CHECK_ERROR((num_procs = sysconf(_SC_NPROCESSORS_ONLN)) <= 0);
    num_per_thread = num_pixels / num_procs;
    excess = num_pixels % num_procs;
    

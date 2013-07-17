@@ -54,6 +54,7 @@ typedef struct {
    long flen;
    char *fdata;
    int unit_size;
+   int no_of_threads;
 } wc_data_t;
 
 typedef struct
@@ -121,10 +122,13 @@ void wordcount_splitter(void *data_in)
    pthread_t * tid;
    int i,num_procs;
 
-   CHECK_ERROR((num_procs = sysconf(_SC_NPROCESSORS_ONLN)) <= 0);
-   dprintf("THe number of processors is %d\n\n", num_procs);
-
-   wc_data_t * data = (wc_data_t *)data_in; 
+   //CHECK_ERROR((num_procs = sysconf(_SC_NPROCESSORS_ONLN)) <= 0);
+   //dprintf("THe number of processors is %d\n\n", num_procs);
+   
+   wc_data_t * data = (wc_data_t *)data_in;
+   
+   num_procs = data->no_of_threads;
+    
    tid = (pthread_t *)MALLOC(num_procs * sizeof(pthread_t));  
 
    /* Thread must be scheduled systemwide */
@@ -404,14 +408,21 @@ int main(int argc, char *argv[]) {
    struct timeval starttime,endtime;
 
    // Make sure a filename is specified
-   if (argv[1] == NULL)
+   if (argv[1] == NULL  || argv[2] == NULL)
    {
-      printf("USAGE: %s <filename> [Top # of results to display]\n", argv[0]);
+      printf("USAGE: %s <filename> <number_of_threads> [Top # of results to display]\n", argv[0]);
       exit(1);
    }
    
    fname = argv[1];
-   disp_num_str = argv[2];
+   disp_num_str = argv[3];
+   
+   int num_threads = atoi(argv[2]);
+    if (num_threads == 0)
+    {
+        printf("Invalid number of threads (%s). Running in a single thread.\n", argv[2]);
+        num_threads = 1;
+    }
 
    printf("Wordcount: Running...\n");
    
@@ -433,6 +444,7 @@ int main(int argc, char *argv[]) {
    wc_data.fpos = 0;
    wc_data.flen = finfo.st_size;
    wc_data.fdata = fdata;
+   wc_data.no_of_threads = num_threads;
 
    dprintf("Wordcount: Calling MapReduce Scheduler Wordcount\n");
 

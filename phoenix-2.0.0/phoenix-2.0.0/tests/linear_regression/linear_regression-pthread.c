@@ -99,10 +99,17 @@ int main(int argc, char *argv[])
 
 
    // Make sure a filename is specified
-   if (argv[1] == NULL)
+   if (argv[1] == NULL || argv[2] == NULL)
    {
-      printf("USAGE: %s <filename>\n", argv[0]);
+      printf("USAGE: %s <filename> <no_of_threads>\n", argv[0]);
       exit(1);
+   }
+   
+   num_procs = atoi(argv[2]);
+   if (num_procs == 0)
+   {
+       printf("Invalid number of threads (%s). Running in a single thread.\n", argv[2]);
+       num_procs = 1;
    }
    
    fname = argv[1];
@@ -115,8 +122,8 @@ int main(int argc, char *argv[])
    CHECK_ERROR((fdata = mmap(0, finfo.st_size + 1, 
       PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0)) == NULL);
 
-   CHECK_ERROR((num_procs = sysconf(_SC_NPROCESSORS_ONLN)) <= 0);
-   printf("The number of processors is %d\n\n", num_procs);
+   //CHECK_ERROR((num_procs = sysconf(_SC_NPROCESSORS_ONLN)) <= 0);
+   //printf("The number of processors is %d\n\n", num_procs);
 
    pthread_attr_init(&attr);
    pthread_attr_setscope(&attr, PTHREAD_SCOPE_SYSTEM);

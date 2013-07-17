@@ -55,6 +55,7 @@ typedef struct {
   long bytes_comp;
   char * keys_file;
   char * encrypt_file;
+  int no_of_threads;
 } str_data_t;
 
 typedef struct {
@@ -140,10 +141,12 @@ void string_match_splitter(void *data_in)
     pthread_t * tid;
     int i, num_procs;
 
-    CHECK_ERROR((num_procs = sysconf(_SC_NPROCESSORS_ONLN)) <= 0);
-    printf("THe number of processors is %d\n", num_procs);
+    //CHECK_ERROR((num_procs = sysconf(_SC_NPROCESSORS_ONLN)) <= 0);
+    //printf("THe number of processors is %d\n", num_procs);
 
     str_data_t * data = (str_data_t *)data_in; 
+    
+    num_procs = data->no_of_threads;
 
     /* Check whether the various terms exist */
     assert(data_in);
@@ -264,12 +267,19 @@ int main(int argc, char *argv[]) {
 	 /* Option to provide the encrypted words in a file as opposed to source code */
     //fname_encrypt = "encrypt.txt";
     
-    if (argv[1] == NULL)
+    if (argv[1] == NULL || argv[2] == NULL)
     {
-        printf("USAGE: %s <keys filename>\n", argv[0]);
+        printf("USAGE: %s <keys filename> <no_of_threads>\n", argv[0]);
         exit(1);
     }
     fname_keys = argv[1];
+    
+    int num_threads = atoi(argv[2]);
+    if (num_threads == 0)
+    {
+        printf("Invalid number of threads (%s). Running in a single thread.\n", argv[2]);
+        num_threads = 1;
+    }
 
     struct timeval starttime,endtime;
     srand( (unsigned)time( NULL ) );
@@ -302,6 +312,7 @@ int main(int argc, char *argv[]) {
     str_data.bytes_comp = 0;
     str_data.keys_file  = ((char *)fdata_keys);
     str_data.encrypt_file  = NULL;
+    str_data.no_of_threads = num_threads;
     //str_data.encrypted_file_len = finfo_encrypt.st_size;
     //str_data.encrypt_file  = ((char *)fdata_encrypt);     
 
