@@ -1,0 +1,15 @@
+
+g++ -O0 -I../common ../common/CommandLineParser.cpp ../common/Utils.cpp ../pi_calculation/PiCalculation.cpp -lrt -o PiCalculation_O0
+g++ -O1 -I../common ../common/CommandLineParser.cpp ../common/Utils.cpp ../pi_calculation/PiCalculation.cpp -lrt -o PiCalculation_O1
+g++ -O2 -I../common ../common/CommandLineParser.cpp ../common/Utils.cpp ../pi_calculation/PiCalculation.cpp -lrt -o PiCalculation_O2
+g++ -O3 -I../common ../common/CommandLineParser.cpp ../common/Utils.cpp ../pi_calculation/PiCalculation.cpp -lrt -o PiCalculation_O3
+
+g++ -O0 -I../common ../common/CommandLineParser.cpp ../common/Utils.cpp ../vector_dot_product/VectorDotProduct.cpp -lrt -o VectorDotProduct_O0
+g++ -O1 -I../common ../common/CommandLineParser.cpp ../common/Utils.cpp ../vector_dot_product/VectorDotProduct.cpp -lrt -o VectorDotProduct_O1
+g++ -O2 -I../common ../common/CommandLineParser.cpp ../common/Utils.cpp ../vector_dot_product/VectorDotProduct.cpp -lrt -o VectorDotProduct_O2
+g++ -O3 -I../common ../common/CommandLineParser.cpp ../common/Utils.cpp ../vector_dot_product/VectorDotProduct.cpp -lrt -o VectorDotProduct_O3
+
+g++ -O0 -I../common ../common/CommandLineParser.cpp ../common/Utils.cpp ../matrix_multiplication/MatrixMultiplication.cpp -lrt -o MatrixMultiplication_O0
+g++ -O1 -I../common ../common/CommandLineParser.cpp ../common/Utils.cpp ../matrix_multiplication/MatrixMultiplication.cpp -lrt -o MatrixMultiplication_O1
+g++ -O2 -I../common ../common/CommandLineParser.cpp ../common/Utils.cpp ../matrix_multiplication/MatrixMultiplication.cpp -lrt -o MatrixMultiplication_O2
+g++ -O3 -I../common ../common/CommandLineParser.cpp ../common/Utils.cpp ../matrix_multiplication/MatrixMultiplication.cpp -lrt -o MatrixMultiplication_O3
