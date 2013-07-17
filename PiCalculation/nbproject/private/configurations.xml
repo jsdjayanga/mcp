@@ -24,8 +24,6 @@
       </nativedebugger>
       <runprofile version="9">
         <runcommandpicklist>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" --mode=s --threads=2 --count=1000000</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" --mode=p --threads=3 --count=1000</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" --mode=p --threads=3 --count=1000000</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" --mode=p --threads=3 --count=100098</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" --mode=s --threads=3 --count=100097</runcommandpicklistitem>
@@ -34,8 +32,10 @@
           <runcommandpicklistitem>"${OUTPUT_PATH}" --mode=a --threads=3 --count=10</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" --mode=a --threads=3 --count=10 --iterations=5</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" --mode=a --threads=3 --count=100000 --iterations=5</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" --mode=s --threads=3 --count=1000 --iterations=5</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" --mode=a --threads=3 --count=1000 --iterations=5</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}" --mode=a --threads=3 --count=100000 --iterations=5</runcommand>
+        <runcommand>"${OUTPUT_PATH}" --mode=a --threads=3 --count=1000 --iterations=5</runcommand>
         <rundir></rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>

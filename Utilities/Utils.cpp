@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
+#include <iostream>
 using namespace std;
 
 Utils::Utils()
@@ -57,18 +57,16 @@ bool Utils::Compare(double value1, double value2)
 
 double Utils::AverageValues(std::set<double>& value_set)
 {
-    set<double>::reverse_iterator rite = value_set.rbegin();
+    std::set<double> temp(value_set.begin(), value_set.end());
     
-    double average = 0.0;
-    for (set<double>::iterator ite = value_set.begin(); ite != value_set.end(); ite++) 
-    {
-        if (ite == value_set.begin() || ite == rite.base())
-        {
-            continue;
-        }
+    temp.erase(temp.begin());
+    temp.erase((++temp.rbegin()).base());
 
+    double average = 0.0;
+    for (set<double>::iterator ite = temp.begin(); ite != temp.end(); ite++) 
+    {
         average += *ite;
     }
     
-    return average / value_set.size();
+    return average / temp.size();
 }
