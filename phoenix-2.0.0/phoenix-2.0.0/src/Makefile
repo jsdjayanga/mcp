@@ -57,6 +57,7 @@ default: all
 all: $(HOME)/$(LIB_DIR)/$(TARGET)
 
 $(HOME)/$(LIB_DIR)/$(TARGET): $(TARGET)
+	test -d $(HOME)/$(LIB_DIR) || mkdir $(HOME)/$(LIB_DIR)
 	cp $< $(HOME)/$(LIB_DIR)
 
 $(LIB_PHOENIX).a: $(OBJS)
